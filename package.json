@@ -1,0 +1,25 @@
+{
+  "name": "cloud-gdjs",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "type": "module",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^17.0.31",
+    "tsup": "^5.12.6",
+    "typescript": "^4.6.4"
+  },
+  "scripts": {
+    "build": "tsup src/** runtime-lib/** shims/** --target node16 --format esm --no-splitting",
+    "start": "yarn build --watch",
+    "test": "node ./dist/src/generate.js ./test/Not-A-Vania/ ./test/build/ && node ./test/build/lib/run.js"
+  },
+  "files": [
+    "dist/src",
+    "dist/runtime-lib/**.js",
+    "dist/shims/**.js"
+  ],
+  "dependencies": {
+    "sharp": "^0.30.5"
+  }
+}
