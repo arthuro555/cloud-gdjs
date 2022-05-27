@@ -1,4 +1,5 @@
 # cloud-gdjs
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X412YWU)
 
 A mod for GDevelop web exports for them to run in node, lightweightly without any rendering or polyfilling (no PIXI, DOM, Howler...) 🧙‍♂️
 
@@ -6,6 +7,7 @@ This is in a highly experimental state:
  - Do not use this for production games
  - Do not expect a clean and easy to use interface
  - Do not expect support
+ - Do not expect it to work for your game
 
 ## Roadmap
 
