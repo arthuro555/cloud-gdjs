@@ -12,10 +12,11 @@ const window = (() => {
     navigator: {},
     imageSizes,
     require,
+    console,
   };
   window.window = window;
   window.self = window;
-  return createContext(window);
+  return createContext(window, { name: "GDJS Context" });
 })();
 
 const includesList = JSON.parse(
@@ -35,11 +36,22 @@ export const runtimeGame: gdjs.RuntimeGame = runInContext(
   { filename: "run.js" }
 );
 
-export const switchToScene = (sceneName: string) =>
-  runtimeGame.getSceneStack().replace(sceneName, true);
+// Simplified game loop, without any of the rendering, user inputs or frame limiting
+export const startGameLoop = (initialScene?: string): (() => void) => {
+  if (!runtimeGame.hasScene()) {
+    console.error("This game has no scenes!");
+    process.exit(1);
+  }
 
-// Simplified game loop, without any of the rendering
-export const startGameLoop = () => {
+  // Push the first scene on the stack
+  runtimeGame
+    .getSceneStack()
+    .push(
+      initialScene ||
+        runtimeGame.getGameData().firstLayout ||
+        runtimeGame.getSceneData().name
+    );
+
   let lastCallTime = Date.now();
   return function step() {
     const currentTime = Date.now();

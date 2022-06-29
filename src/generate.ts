@@ -4,13 +4,14 @@ import { basename, normalize } from "path";
 import { argv } from "process";
 import sharp from "sharp";
 
-const INPUT: string = `${normalize(argv[2])}/` || "./project/";
-const OUTPUT: string = `${normalize(argv[3])}/` || "./cloud-server/";
-const OUTPUT_GDJS: string = OUTPUT + "gdjs/";
-const OUTPUT_LIB: string = OUTPUT + "lib/";
+const INPUT = `${normalize(argv[2])}/` || "./project/";
+const OUTPUT = `${normalize(argv[3])}/` || "./cloud-server/";
+const OUTPUT_GDJS = OUTPUT + "gdjs/";
+const OUTPUT_LIB = OUTPUT + "lib/";
 const ROOT = __dirname + "/../";
 const SHIMS = ROOT + "shims/";
 const RUNTIME_LIBRARY = ROOT + "runtime-lib/";
+const RUNNER = RUNTIME_LIBRARY + "runners/" + (argv[4] || "basic") + ".js";
 
 try {
   await rm(OUTPUT, { recursive: true });
@@ -56,8 +57,7 @@ try {
       .replace("this.render()", "0")
   );
   // Finally copy the runtime scripts
-  await copyFile(RUNTIME_LIBRARY + "run.js", OUTPUT_LIB + "run.js");
-  await copyFile(RUNTIME_LIBRARY + "index.js", OUTPUT_LIB + "index.js");
+  await copyFile(RUNNER, OUTPUT_LIB + "run.js");
   await writeFile(
     OUTPUT + "package.json",
     JSON.stringify(makeTemplatePackageJSON())
@@ -89,7 +89,7 @@ try {
     )
   );
 } catch (e) {
-  console.log(e);
+  console.error(e);
 }
 
 async function loadImageSize(file: string) {

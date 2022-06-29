@@ -8,7 +8,6 @@ namespace gdjs {
     ensureUpToDate() {}
     update() {}
 
-    /*
     updatePosition() {}
     updateX() {}
     updateY() {}
@@ -26,6 +25,5 @@ namespace gdjs {
     }
     setWidth() {}
     setHeight() {}
-    */
   }
 }
