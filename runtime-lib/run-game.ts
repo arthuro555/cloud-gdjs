@@ -21,7 +21,7 @@ const window = (() => {
 
 const includesList = JSON.parse(
   (await readFile(__dirname + "/includes.json")).toString()
-);
+) as string[];
 const includeFiles = await Promise.all<Buffer>(
   includesList.map((file) => readFile(__dirname + "/../gdjs/" + file))
 );
@@ -49,7 +49,7 @@ export const startGameLoop = (initialScene?: string): (() => void) => {
     .push(
       initialScene ||
         runtimeGame.getGameData().firstLayout ||
-        runtimeGame.getSceneData().name
+        runtimeGame.getSceneData()!.name
     );
 
   let lastCallTime = Date.now();

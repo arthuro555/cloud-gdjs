@@ -6,4 +6,7 @@ export const makeTemplatePackageJSON = () => ({
   scripts: {
     start: "node ./lib/run.js",
   },
+  dependencies: {
+    chalk: "5.0.1",
+  },
 });

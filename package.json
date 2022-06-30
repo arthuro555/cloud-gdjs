@@ -1,13 +1,14 @@
 {
   "name": "cloud-gdjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "type": "module",
   "license": "MIT",
   "devDependencies": {
+    "@types/inquirer": "^8.2.1",
     "@types/node": "^17.0.31",
+    "@types/sharp": "^0.30.4",
     "@types/ws": "^8.5.3",
-    "chalk": "^5.0.1",
     "tsup": "^5.12.6",
     "typescript": "^4.6.4",
     "ws": "^8.7.0"
@@ -17,19 +18,25 @@
     "utf-8-validate": "^5.0.9"
   },
   "scripts": {
-    "build": "tsup src/** runtime-lib/runners/** shims/** --target node16 --format esm --no-splitting",
+    "build": "tsup src/cli.ts runtime-lib/runners/** shims/** --target node16 --format esm --no-splitting",
     "build:clean": "node -e \"try{fs.rmSync('./dist',{recursive: true})}catch{};\"",
     "start": "yarn build --watch",
-    "test": "node ./dist/src/generate.js ./test/Not-A-Vania/ ./test/build/ && yarn test:run",
+    "test": "yarn test:build && yarn test:run",
+    "test:build": "cd test/Not-a-Vania && node ../../dist/src/cli.js && cd ../..",
     "test:clean": "node -e \"try{fs.rmSync('./test/build',{recursive: true})}catch{};\"",
     "test:run": "node ./test/build/lib/run.js",
     "clean-test": "yarn build:clean && yarn build && yarn test:clean && yarn test",
     "prepublish": "yarn build --minify"
   },
+  "bin": "./dist/src/cli.js",
   "files": [
     "dist/**"
   ],
   "dependencies": {
-    "sharp": "^0.30.5"
+    "chalk": "^5.0.1",
+    "gdexporter": "^3.2.8",
+    "inquirer": "^9.0.0",
+    "sharp": "^0.30.5",
+    "typanion": "^3.9.0"
   }
 }

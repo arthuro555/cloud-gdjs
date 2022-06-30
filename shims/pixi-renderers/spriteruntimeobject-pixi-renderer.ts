@@ -43,10 +43,14 @@ namespace gdjs {
       return this.getUnscaledWidth() * this.owner.getScaleX();
     }
     getUnscaledWidth(): number {
-      return imageSizes[this.owner._animationFrame.image].width;
+      return !!this.owner._animationFrame
+        ? imageSizes[this.owner._animationFrame.image].width
+        : 0;
     }
     getUnscaledHeight(): number {
-      return imageSizes[this.owner._animationFrame.image].height;
+      return !!this.owner._animationFrame
+        ? imageSizes[this.owner._animationFrame.image].height
+        : 0;
     }
 
     reinitialize(
